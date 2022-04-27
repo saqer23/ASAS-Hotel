@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="HOTEL" Class="HotelDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.;Initial Catalog=HOTEL;Integrated Security=True" SettingsObjectName="ASAS_Hotel_Managment_System.Properties.Settings" SettingsPropertyName="HOTELConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.baid_amount" Member="baid_amounts">
+    <Type Name="baid_amount">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="reservertion_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="user_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="baid_amount" Member="baid_amount1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Reservation_baid_amount" Member="Reservation" ThisKey="reservertion_id" OtherKey="ID" Type="Reservation" IsForeignKey="true" />
+      <Association Name="User_baid_amount" Member="User" ThisKey="user_id" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Booked_Rooms" Member="Booked_Rooms">
+    <Type Name="Booked_Room">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="R_num" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Entrig_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="exing_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="baid_amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="remainss" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Reservation" Member="Reservations">
+    <Type Name="Reservation">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="R_Type" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="R_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Religen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Entering_Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Exiting_Time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Room_Suite_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Rooms_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="User_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Details" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Baid_Amount" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="remains" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Reservation_baid_amount" Member="baid_amounts" ThisKey="ID" OtherKey="reservertion_id" Type="baid_amount" />
+      <Association Name="Room_Reservation" Member="Room" ThisKey="Rooms_ID" OtherKey="ID" Type="Room" IsForeignKey="true" />
+      <Association Name="User_Reservation" Member="User" ThisKey="User_ID" OtherKey="ID" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Room_Suite" Member="Room_Suites">
+    <Type Name="Room_Suite">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Room_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Suite_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Suite_Room_Suite" Member="Suite" ThisKey="Suite_ID" OtherKey="ID" Type="Suite" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rooms" Member="Rooms">
+    <Type Name="Room">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="R_number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="inside_Bath_Room" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IS_Active" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Room_Reservation" Member="Reservations" ThisKey="ID" OtherKey="Rooms_ID" Type="Reservation" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Setting" Member="Settings">
+    <Type Name="Setting">
+      <Column Name="login_image_db" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="main_image_db" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Suite" Member="Suites">
+    <Type Name="Suite">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Room_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Suite_Room_Suite" Member="Room_Suites" ThisKey="ID" OtherKey="Suite_ID" Type="Room_Suite" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="password" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Salary" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Phone_Number" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Full_Name" Type="System.String" DbType="NVarChar(70)" CanBeNull="true" />
+      <Column Name="IS_Admin" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IS_User" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="User_baid_amount" Member="baid_amounts" ThisKey="ID" OtherKey="user_id" Type="baid_amount" />
+      <Association Name="User_Reservation" Member="Reservations" ThisKey="ID" OtherKey="User_ID" Type="Reservation" />
+    </Type>
+  </Table>
+</Database>
